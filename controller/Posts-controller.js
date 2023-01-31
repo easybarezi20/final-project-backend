@@ -24,6 +24,16 @@ router.post("/", async (req, res, next) => {
         next(error);
     }
 })
+router.delete("/:id", async (req, res, next) => {
+    try {
+        const deletedPost = await Posts.findByIdAndDelete(req.params.id);
+        res.status(202).json(deletedPost);
+    } catch (error) {
+        console.error(error);
+        next(error);
+    }
+})
+
 
 
 

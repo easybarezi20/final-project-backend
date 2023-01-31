@@ -20,6 +20,10 @@ const morgan = require("morgan");
 const { postsController } = require("./controller")
 
 // middleware
+app.use(cors());
+app.use(morgan("dev"));
+app.use(express.json()); // app.use(express.json()) MUST GO BEFORE THE CONTROLLERS
+app.use(express.urlencoded({ extended: true }));
 app.use("/posts", postsController);
 app.use((err, req, res, next) => res.status(500).send(err));
 

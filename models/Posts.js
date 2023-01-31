@@ -10,6 +10,10 @@ const PostsSchema = new mongoose.Schema(
             type: String,
             required: [true, "image is needed"],
         },
+        caption: {
+            type: String,
+            required: [false, 'not required'],
+        },
         likes:{
             type: Number,
             default: 0,
