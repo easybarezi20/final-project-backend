@@ -1,23 +1,24 @@
 const mongoose = require("mongoose");
+const { ObjectId } = mongoose.Schema.Types
 
 const PostsSchema = new mongoose.Schema(
     {
-        userName: {
-            type: String,
-            required: [true, "username is required"],
-        },
-        image: {
-            type: String,
-            required: [true, "image is needed"],
-        },
-        caption: {
-            type: String,
-            required: [false, 'not required'],
-        },
-        likes:{
-            type: Number,
-            default: 0,
-        }
+       title:{
+        type: String,
+        required: true,
+       },
+       body:{
+        type: String,
+        required: true,
+       },
+       photo:{
+        type: String,
+        default:"no photo"
+       },
+       postedBy:{
+        type: ObjectId,
+        ref: "User"
+       }
     }
 );
 
