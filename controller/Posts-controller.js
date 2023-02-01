@@ -6,7 +6,7 @@ const requireLogin = require('../middleware/requireLogin')
 require("../config/db.connection");
 
 //localhost:4000/posts/allpost
-router.get('/allpost', (req, res) => {
+router.get('/allpost',requireLogin, (req, res) => {
     Posts.find()
     .populate("postedBy","_id name")
     .then(posts => {
@@ -19,14 +19,16 @@ router.get('/allpost', (req, res) => {
 
 //localhost:4000/posts/createpost
 router.post("/createpost", requireLogin, (req, res, next) => {
-   const { title , body } = req.body
-   if(!title || !body){
+   const { title , body, photo } = req.body
+   console.log(title, body, photo)
+   if(!title || !body || !photo){
     return res.status(422).json({error:"please add all the fields"})
    }
    req.user.password = undefined
    const post = new Posts({
     title,
     body,
+    photo,
     postedBy:req.user
    })
    post.save().then(result => {
@@ -37,7 +39,7 @@ router.post("/createpost", requireLogin, (req, res, next) => {
    })
 })
 
-//localhost:4000/posts/allpost
+//localhost:4000/posts/mypost
 router.get('/mypost', requireLogin, (req, res) => {
     Posts.find({postedBy:req.user._id})
     .populate("postedBy", "_id name")
