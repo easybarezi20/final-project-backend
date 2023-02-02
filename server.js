@@ -19,6 +19,7 @@ const morgan = require("morgan");
 //import controllers
 const { postsController } = require("./controller")
 const { authController } = require("./controller")
+const { userController } = require("./controller")
 
 // middleware
 const customMiddleware = (req,res,next) => {
@@ -32,6 +33,7 @@ app.use(express.json()); // app.use(express.json()) MUST GO BEFORE THE CONTROLLE
 app.use(express.urlencoded({ extended: true }));
 app.use("/user", authController);
 app.use("/posts", postsController);
+app.use("/getuser", userController);
 app.use((err, req, res, next) => res.status(500).send(err));
 
 
