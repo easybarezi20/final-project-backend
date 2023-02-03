@@ -17,6 +17,17 @@ router.get('/allpost',requireLogin, (req, res) => {
         console.log(err);
     })
 })
+router.get('/getfollowpost',requireLogin, (req, res) => {
+    Posts.find({postedBy:{$in:req.user.following}})
+    .populate("postedBy","_id name")
+    .populate("comments.postedBy","_id name")
+    .then(posts => {
+        res.json({posts})
+    })
+    .catch(err =>{
+        console.log(err);
+    })
+})
 
 //localhost:4000/posts/createpost
 router.post("/createpost", requireLogin, (req, res, next) => {
