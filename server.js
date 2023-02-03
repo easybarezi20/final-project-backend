@@ -1,7 +1,7 @@
 // import dotenv
 require("dotenv").config()
 
-// const { PORT } = process.env;
+const { PORT } = process.env;
 
 // import express
 const express = require("express");
@@ -44,8 +44,7 @@ app.get("/", (req, res) => {
     res.send("Sanity Check for Project 4");
   });
   
-  const PORT = process.env.PORT || 38397
   // LISTEN ROUTE
-  app.listen(PORT, () => {
+  app.listen(process.env.PORT || 3000, () => {
     console.log(`Listening on ${PORT}`);
   });
