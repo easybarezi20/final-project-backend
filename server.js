@@ -45,6 +45,6 @@ app.get("/", (req, res) => {
   });
   
   // LISTEN ROUTE
-  app.listen(PORT, () => {
+  app.listen(process.env.PORT || 4000, () => {
     console.log(`Listening on ${PORT}`);
   });
